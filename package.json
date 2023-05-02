@@ -1,0 +1,30 @@
+{
+  "name": "cv",
+  "version": "1.0.0",
+  "description": "Jacks CV",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Jack Maskell",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-generator": "^4.2.0",
+    "jquery": "^3.6.4",
+    "js": "^0.1.0",
+    "node-sass": "^8.0.0",
+    "nodemon": "^2.0.22",
+    "sass": "^1.62.1",
+    "scss": "^0.2.4",
+    "tippy.js": "^6.3.7"
+  },
+  "devDependencies": {
+    "font-awesome": "^4.7.0"
+  }
+}
