@@ -1,43 +1,65 @@
 class Gallery {
-    constructor(images) {
-      this.$el = $('<div class="gallery"/>');
-      this.images = images;
-      this.currentIndex = 0;
-      this.showGallery();
-    }
-  
-    showGallery() {
-      const $leftArrow = $('<div class="arrow left-arrow">&lt;</div>').appendTo(this.$el);
-      const $rightArrow = $('<div class="arrow right-arrow">&gt;</div>').appendTo(this.$el);
-      const $imageContainer = $('<div class="image-container"/>').appendTo(this.$el);
-      const $image = $('<img class="gallery-image"/>').attr('src', this.images[this.currentIndex]).appendTo($imageContainer);
-      const $closeButton = $('<div class="close-button">×</div>').appendTo($imageContainer);
-
-      this.images.forEach(image => {
-        $('<img class="gallery-image"/>').attr('src', image).appendTo($imageContainer);
-      });
-  
-      $leftArrow.on('click', () => {
-        this.currentIndex += 1;
-        $image.attr('src', this.images[this.currentIndex]);
-      });
-  
-      $rightArrow.on('click', () => {
-        this.currentIndex = (this.currentIndex + 1) % this.images.length;
-        $image.attr('src', this.images[this.currentIndex]);
-      });
-  
-      $image.on('click', () => {
-        this.$el.addClass('full-screen');
-      });
-  
-      $closeButton.on('click', () => {
-        this.$el.removeClass('full-screen');
-      });
-  
-      $('body').append(this.$el);
-    }
+  constructor(images) {
+    this.images = images;
+    this.currentIndex = 0;
+    this.container = $('<div>').addClass('gallery');
+    this.displayImage();
+    this.container.appendTo($('body'));
+    this.bindEvents();
   }
-  
-  export default Gallery;
-  
+
+  displayImage() {
+    const image = $('<img>').attr('src', this.images[this.currentIndex]);
+    this.container.empty().append(image);
+    if (this.container.hasClass('fullscreen')) {
+      image.addClass('fullscreen');
+    } else {
+      image.addClass('fill-container');
+    }
+
+    // add arrow buttons
+    const leftArrow = $('<div>').addClass('arrow left').html('&lt;')
+      .on('click', 1, () => {
+        this.container.stopPropagation();
+        self.prevImage();
+      });
+
+    const rightArrow = $('<div>').addClass('arrow right').html('&gt;')
+      .on('click', 1, () => {
+        this.container.stopPropagation();
+        self.nextImage();
+      });
+      
+    this.container.append(leftArrow, rightArrow);
+  }
+
+  bindEvents() {
+    const self = this;
+
+
+    this.container.find('.right').on('click', () => {
+
+    });
+
+    this.container.on('click', 2, () => {
+      if (self.container.hasClass('fullscreen')) {
+        self.container.removeClass('fullscreen');
+      } else {
+        self.container.addClass('fullscreen');
+      }
+      self.displayImage();
+    });
+  }
+
+  prevImage() {
+    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    this.displayImage();
+  }
+
+  nextImage() {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    this.displayImage();
+  }
+}
+
+export default Gallery;

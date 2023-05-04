@@ -93,7 +93,7 @@ class CV {
             if(['Community Flavor Pack', 'Dice Roll App for Tabletop RPGs'].includes(project.title)) {
                 const images = ['images/image1.jpg', 'images/image2.jpg', 'images/image3.jpg'];
                 const gallery = new Gallery(images);
-                gallery.$el.appendTo($subsection)
+                gallery.container.appendTo($subsection)
             }
         });
     }
