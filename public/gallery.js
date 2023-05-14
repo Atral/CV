@@ -4,61 +4,59 @@ class Gallery {
     this.currentIndex = 0;
     this.container = $('<div>').addClass('gallery');
     this.displayImage();
-    this.container.appendTo($('body'));
-    this.bindEvents();
-  }
+    this.container.appendTo($('body'));  }
 
   displayImage() {
-    const image = $('<img>').attr('src', this.images[this.currentIndex]);
-    this.container.empty().append(image);
-    if (this.container.hasClass('fullscreen')) {
-      image.addClass('fullscreen');
-    } else {
-      image.addClass('fill-container');
-    }
+    this.image = $('<img>').attr('src', this.images[this.currentIndex]);
+    this.container.empty().append(this.image);
 
-    // add arrow buttons
-    const leftArrow = $('<div>').addClass('arrow left').html('&lt;')
-      .on('click', 1, () => {
-        this.container.stopPropagation();
-        self.prevImage();
+    this.container.on('click', () => {
+      this.maximiseImage(closeButton);
+    });
+
+    const leftArrow = $('<div class="arrow left">').html('&lt;')
+      .on('click', (e) => {
+        e.stopPropagation();
+        this.prevImage();
       });
 
-    const rightArrow = $('<div>').addClass('arrow right').html('&gt;')
-      .on('click', 1, () => {
-        this.container.stopPropagation();
-        self.nextImage();
+    const rightArrow = $('<div class="arrow right">').html('&gt;')
+      .on('click', (e) => {
+        e.stopPropagation();
+        this.nextImage();
       });
-      
-    this.container.append(leftArrow, rightArrow);
+          
+    const closeButton = $('<div class="close-button">x</div>')
+      .on('click', (e) => {
+        e.stopPropagation();
+        this.closeImage();
+        closeButton.toggle();
+        this.container.on('click', () => {this.maximiseImage(closeButton)});
+      }).hide();
+
+    this.container.append(leftArrow, rightArrow, closeButton);
   }
 
-  bindEvents() {
-    const self = this;
-
-
-    this.container.find('.right').on('click', () => {
-
-    });
-
-    this.container.on('click', 2, () => {
-      if (self.container.hasClass('fullscreen')) {
-        self.container.removeClass('fullscreen');
-      } else {
-        self.container.addClass('fullscreen');
-      }
-      self.displayImage();
-    });
+  maximiseImage(closeButton) {
+    this.container.toggleClass('fullscreen');
+    this.image.toggleClass('fullscreen');
+    this.container.off('click');
+    closeButton.toggle();
   }
 
   prevImage() {
     this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-    this.displayImage();
+    this.image.attr('src', this.images[this.currentIndex])
   }
 
   nextImage() {
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
-    this.displayImage();
+    this.image.attr('src', this.images[this.currentIndex])
+  }
+
+  closeImage() {
+    this.container.removeClass('fullscreen');
+    this.image.removeClass('fullscreen');
   }
 }
 

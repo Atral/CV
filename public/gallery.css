@@ -1,7 +1,6 @@
 .gallery {
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
@@ -11,6 +10,8 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  border-radius: 6px;
+  margin-top: 2rem;
 }
 
 .gallery .arrow {
@@ -45,14 +46,17 @@
 .gallery.fullscreen img {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain;
+  object-fit: scale-down;
+  display: flex;
 }
 
-.gallery.fullscreen .close {
+.gallery .close-button {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 1%;
+  right: 2%;
   font-size: 2em;
+  transform: translate(50%);
   cursor: pointer;
   z-index: 1;
+  color: rgba(255, 255, 255, 0.541);
 }

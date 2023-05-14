@@ -90,8 +90,8 @@ class CV {
             const $subsection = this.addSubsection($section, '', $(`${project.link? `<a href="${project.link}">`: '<span>'}${project.title}${project.link? '</a>': '</span>'}`),
                 project.date, $(`<div class="content">${project.text}</div>`));
 
-            if(['Community Flavor Pack', 'Dice Roll App for Tabletop RPGs'].includes(project.title)) {
-                const images = ['images/image1.jpg', 'images/image2.jpg', 'images/image3.jpg'];
+            if(['Community Flavor Pack'].includes(project.title)) {
+                const images = ['images/cfp_1.jpg', 'images/cfp_2.jpg', 'images/cfp_3.jpg', 'images/cfp_4.jpg'];
                 const gallery = new Gallery(images);
                 gallery.container.appendTo($subsection)
             }
@@ -108,8 +108,8 @@ class CV {
         location.appendTo($location);
 
         $(`<span class="location-date-item">${dateRangeString}</span>`).appendTo($locationDateRow);
-
         $('<div class="content"/>').appendTo($content);
+
         $content.appendTo($subsection);
 
         return $subsection;
